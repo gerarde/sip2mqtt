@@ -106,6 +106,7 @@ def main(argv):
 
     requiredNamed.add_argument("-d",    "--sip_domain",     type=str, required=True, help="the SIP domain", default=os.environ.get('SIP_DOMAIN', None))
     parser.add_argument(                "--sip_port",       type=int, required=False, help="the SIP transport port number", default=os.environ.get('SIP_PORT', 5060))
+    requiredNamed.add_argument("-x",    "--sip_extension",   type=str, required=True, help="the SIP extension", default=os.environ.get('SIP_EXTENSION', None))
     requiredNamed.add_argument("-n",    "--sip_username",   type=str, required=True, help="the SIP username", default=os.environ.get('SIP_USERNAME', None))
     requiredNamed.add_argument("-s",    "--sip_password",   type=str, required=False, help="the SIP password", default=os.environ.get('SIP_PASSWORD', None))
     parser.add_argument(                "--sip_display",    type=str, required=False, help="the SIP user display name", default=app_name)
@@ -178,7 +179,7 @@ def main(argv):
         lib.start()
 
         acc_cfg = pj.AccountConfig()
-        acc_cfg.id = "sip:" + args.sip_username + "@" + args.sip_domain
+        acc_cfg.id = "sip:" + args.sip_extension + "@" + args.sip_domain
         acc_cfg.reg_uri = "sip:" + args.sip_domain
         acc_cfg.auth_cred = [ pj.AuthCred("*", args.sip_username, args.sip_password) ]
         acc_cfg.allow_contact_rewrite = False
